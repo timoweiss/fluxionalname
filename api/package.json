@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chairo": "^2.2.0",
     "hapi": "^13.3.0"
   }
 }
