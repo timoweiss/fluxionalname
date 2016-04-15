@@ -25,7 +25,7 @@ module.exports = function (options) {
         this.prior(close_msg, done);
     });
 
-    seneca.add({role: 'user', cmd: 'action1'}, actions.serviceAction);
+    seneca.add({role: 'user', cmd: 'create'}, actions.createUser);
     seneca.add({role: 'user', cmd: 'action2'}, actions.serviceAction2);
 
     return {

@@ -1,12 +1,12 @@
 'use strict';
 
 module.exports = {
-    serviceAction,
+    createUser,
     serviceAction2
 };
 
 
-function serviceAction(args, callback) {
+function createUser(args, callback) {
     callback(null, {data: 'data'});
 }
 
