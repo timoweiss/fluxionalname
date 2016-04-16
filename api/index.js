@@ -1,17 +1,25 @@
 'use strict';
-const Chairo = require('chairo');
 const Hapi = require('hapi');
+const Glue = require('glue');
 
-const server = new Hapi.Server();
-server.connection({
-    host: 'localhost',
-    port: 8000
-});
+const manifest = {
+    connections: [{
+        port: process.env['API_PORT'] || 8000
+    }],
+    registrations: [{
+        plugin: 'chairo',
+        options: {}
+    }]
+};
 
-server.register({ register: Chairo, options: { tag: 'api', log: 'debug', seneca: true } }, function (err) {
+
+Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
+
+    if(err) {
+        throw err;
+    }
 
     const seneca = server.seneca;
-
     seneca
         .use(require('seneca-mesh'), { auto: true })
         .ready(function (senecaErr) {
@@ -34,7 +42,4 @@ server.register({ register: Chairo, options: { tag: 'api', log: 'debug', seneca:
                 console.log('Server running at:', server.info.uri);
             });
         })
-
-
-
 });
