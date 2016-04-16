@@ -21,7 +21,7 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
     const seneca = server.seneca;
     seneca
         .use(require('seneca-mesh'), { auto: true })
-        .ready(function (senecaErr) {
+        .ready(senecaErr => {
             if (senecaErr) {
                 throw senecaErr;
             }
@@ -34,7 +34,7 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
                 console.log(err || data);
             });
             
-            server.start(function (err) {
+            server.start(err => {
                 if (err) {
                     throw err;
                 }
