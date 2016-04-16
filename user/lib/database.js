@@ -38,11 +38,7 @@ const User = thinky.createModel('User', {
         });
     });
 
-const createUser = (userData) => {
-    if(!userData) {
-        throw new Error('spapspsps')
-    }
+function createUser(userData) {
     const user = new User(userData);
-
     return user.save();
-};
+}
