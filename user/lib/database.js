@@ -3,6 +3,10 @@
 const thinky = require('thinky')();
 const type = thinky.type;
 
+module.exports = {
+    createUser
+};
+
 const User = thinky.createModel('User', {
     id: type.string(),
     name: type.string().min(2),
@@ -39,13 +43,6 @@ const createUser = (userData) => {
         throw new Error('spapspsps')
     }
     const user = new User(userData);
-    
-    
-    
-    
-    return user.save();
-}
 
-module.exports = {
-    createUser
-}
+    return user.save();
+};
