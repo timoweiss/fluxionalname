@@ -5,5 +5,8 @@ module.exports = {
 };
 
 function handler(request, reply) {
-    reply('hallo');
+    
+    request.server.seneca.act('role:user,cmd:get,by:nothing,cache$:true', function(err, data) {
+        reply(data);
+    });
 }
