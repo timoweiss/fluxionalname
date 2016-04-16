@@ -6,6 +6,12 @@ api:
     - API_PORT=10000
   ports:
     - 10000:20000
+base:
+  build: ../base/
+  container_name: base
+  environment:
+    - SERVICE_HOST=0.0.0.0
+    - API_PORT=10000
 user:
   build: ../user/
   container_name: user
