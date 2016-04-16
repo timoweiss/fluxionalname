@@ -12,9 +12,9 @@ base:
   environment:
     - SERVICE_HOST=0.0.0.0
     - API_PORT=10000
-user:
+user_service:
   build: ../user/
-  container_name: user
+  container_name: user_service
   environment:
     - SERVICE_HOST=0.0.0.0
     - API_PORT=10000
