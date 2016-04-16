@@ -1,0 +1,6 @@
+api:
+  build: ../api/
+  container_name: api
+user_service:
+  build: ../user/
+  container_name: user_service

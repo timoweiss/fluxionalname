@@ -1,0 +1,14 @@
+api:
+  build: ../api/
+  container_name: api
+  environment:
+    - SERVICE_HOST=0.0.0.0
+    - API_PORT=10000
+  ports:
+    - 10000:20000
+user:
+  build: ../user/
+  container_name: user
+  environment:
+    - SERVICE_HOST=0.0.0.0
+    - API_PORT=10000
