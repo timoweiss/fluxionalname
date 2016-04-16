@@ -1,5 +1,6 @@
 'use strict';
 const Glue = require('glue');
+const userRoutes = require('./routes/userRoutes');
 
 const manifest = {
     connections: [{
@@ -15,24 +16,27 @@ const manifest = {
 Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
 
     if(err) {
+        console.log('er', err);
         throw err;
     }
+    
+    server.route(userRoutes.routes);
 
-    const seneca = server.seneca;
-    seneca
-        .use(require('seneca-mesh'), { auto: true })
-        .ready(senecaErr => {
-            if (senecaErr) {
-                throw senecaErr;
-            }
+    // const seneca = server.seneca;
+    // seneca
+    //     .use(require('seneca-mesh'), { auto: true })
+    //     .ready(senecaErr => {
+    //         if (senecaErr) {
+    //             throw senecaErr;
+    //         }
             
-            seneca.act({role: 'user', cmd: 'create'}, {
-                name: 'timo',
-                surname: 'weiß',
-                mail: 'info@timo-weiss.com'
-            }, (err, data) => {
-                console.log(err || data);
-            });
+    //         seneca.act({role: 'user', cmd: 'create'}, {
+    //             name: 'timo',
+    //             surname: 'weiß',
+    //             mail: 'info@timo-weiss.com'
+    //         }, (err, data) => {
+    //             console.log(err || data);
+    //         });
             
             server.start(err => {
                 if (err) {
@@ -40,5 +44,5 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
                 }
                 console.log('Server running at:', server.info.uri);
             });
-        });
+    //     });
 });
