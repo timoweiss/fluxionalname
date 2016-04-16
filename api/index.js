@@ -11,8 +11,8 @@ server.connection({
 server.register({ register: Chairo }, function (err) {
 
     
-    server.seneca.use('../all');
-
+    server.seneca.use(require('seneca-mesh'), {base: true});
+    
     server.start(function () {
         if (err) {
             throw err;
