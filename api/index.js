@@ -1,5 +1,4 @@
 'use strict';
-const Hapi = require('hapi');
 const Glue = require('glue');
 
 const manifest = {
@@ -28,12 +27,12 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
             }
             
             seneca.act({role: 'user', cmd: 'create'}, {
-                name: "timo",
-                surname: "weiß",
-                mail: "info@timo-weiss.com"
+                name: 'timo',
+                surname: 'weiß',
+                mail: 'info@timo-weiss.com'
             }, (err, data) => {
                 console.log(err || data);
-            })
+            });
             
             server.start(function (err) {
                 if (err) {
@@ -41,5 +40,5 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
                 }
                 console.log('Server running at:', server.info.uri);
             });
-        })
+        });
 });
