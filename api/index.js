@@ -8,15 +8,24 @@ server.connection({
     port: 8000
 });
 
-server.register({ register: Chairo }, function (err) {
+server.register({ register: Chairo, options: { tag: 'api', log: 'debug', seneca: true } }, function (err) {
 
-    
-    server.seneca.use(require('seneca-mesh'), {base: true});
-    
-    server.start(function () {
-        if (err) {
-            throw err;
-        }
-        console.log('Server running at:', server.info.uri);
-    });
+    const seneca = server.seneca;
+
+    seneca
+        .use(require('seneca-mesh'), { auto: true })
+        .ready(function (senecaErr) {
+            if (senecaErr) {
+                throw senecaErr;
+            }
+            server.start(function (err) {
+                if (err) {
+                    throw err;
+                }
+                console.log('Server running at:', server.info.uri);
+            });
+        })
+
+
+
 });
