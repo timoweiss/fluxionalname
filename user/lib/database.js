@@ -4,7 +4,8 @@ const thinky = require('thinky')();
 const type = thinky.type;
 
 module.exports = {
-    createUser
+    createUser,
+    getAllUser
 };
 
 const User = thinky.createModel('User', {
@@ -41,4 +42,8 @@ const User = thinky.createModel('User', {
 function createUser(userData) {
     const user = new User(userData);
     return user.save();
+}
+
+function getAllUser(args) {
+    return User.run();
 }

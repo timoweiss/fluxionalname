@@ -26,8 +26,7 @@ module.exports = function (options) {
     });
 
     seneca.add({role: 'user', cmd: 'create'}, actions.createUser);
-    seneca.add({role: 'user', cmd: 'action2'}, actions.serviceAction2);
-
+    seneca.add({role: 'user', cmd: 'get', by: 'nothing'}, actions.getAllUser);
     return {
         name: opts.name
     };

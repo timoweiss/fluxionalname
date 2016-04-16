@@ -4,7 +4,7 @@ const database = require('./database');
 
 module.exports = {
     createUser,
-    serviceAction2
+    getAllUser
 };
 
 
@@ -16,6 +16,8 @@ function createUser(args, callback) {
         .catch(callback);
 }
 
-function serviceAction2(args, callback) {
-    callback(null, {data: 'data'});
+function getAllUser(args, callback) {
+    database.getAllUser(args)
+        .then(data => callback(null, data))
+        .catch(callback);
 }
