@@ -11,7 +11,7 @@ const opts = {
     },
     mesh: {
         auto: true,
-        pins: ['role:user']
+        pins: ['role:user,cmd:*']
     },
     plugin: {
 
