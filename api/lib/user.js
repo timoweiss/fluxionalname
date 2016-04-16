@@ -6,5 +6,4 @@ module.exports = {
 
 function handler(request, reply) {
     reply('hallo');
-    console.log(request.server.seneca)
 }
