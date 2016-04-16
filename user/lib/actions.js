@@ -1,5 +1,7 @@
 'use strict';
 
+const database = require('./database');
+
 module.exports = {
     createUser,
     serviceAction2
@@ -7,7 +9,11 @@ module.exports = {
 
 
 function createUser(args, callback) {
-    callback(null, {data: 'data'});
+    
+    
+    database.createUser(args)
+        .then(data => callback(null, data))
+        .catch(callback);
 }
 
 function serviceAction2(args, callback) {
