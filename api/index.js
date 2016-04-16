@@ -18,6 +18,15 @@ server.register({ register: Chairo, options: { tag: 'api', log: 'debug', seneca:
             if (senecaErr) {
                 throw senecaErr;
             }
+            
+            seneca.act({role: 'user', cmd: 'create'}, {
+                name: "timo",
+                surname: "weiß",
+                mail: "info@timo-weiss.com"
+            }, (err, data) => {
+                console.log(err || data);
+            })
+            
             server.start(function (err) {
                 if (err) {
                     throw err;
