@@ -1,4 +1,6 @@
 'use strict';
+require('@risingstack/trace');
+
 const Glue = require('glue');
 const userRoutes = require('./routes/userRoutes');
 
@@ -7,8 +9,14 @@ const manifest = {
         port: process.env['API_PORT'] || 8000
     }],
     registrations: [{
-        plugin: 'chairo',
-        options: {}
+        plugin: {
+            register:'chairo',
+            options: {
+                actcache: {
+                    active: true
+                }
+        }},
+        
     }]
 };
 
@@ -19,7 +27,7 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
         console.log('er', err);
         throw err;
     }
-    
+    server.seneca.use('mesh', {auto:true});
     server.route(userRoutes.routes);
             
     server.start(err => {
