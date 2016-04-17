@@ -7,7 +7,8 @@ const service = require('../service');
 
 const opts = {
     seneca: {
-        tag: 'company'
+        tag: 'company',
+        strict:{result:false}
     },
     mesh: {
         auto: true,
