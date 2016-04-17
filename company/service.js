@@ -25,9 +25,8 @@ module.exports = function (options) {
         this.prior(close_msg, done);
     });
 
-    seneca.add({role: 'company', cmd: 'action1'}, actions.serviceAction);
-    seneca.add({role: 'company', cmd: 'action2'}, actions.serviceAction2);
-
+    seneca.add({role: 'company', cmd: 'create'}, actions.createCompany);
+    
     return {
         name: opts.name
     };
