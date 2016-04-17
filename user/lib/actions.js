@@ -26,9 +26,12 @@ function createUser(args, callback) {
 }
 
 function loginUser(args, callback) {
+    console.log(args)
     database.getUserByMail(args.mail).then(user => {
+         
         if(!user) {
-            return callback({msg: 'user not found'});
+            console.log('alskdjlaksdjlaksdjsad returning')
+            return callback(null, {err: {msg:'user not found'}});
         }
         console.log('login with:', args.password, user);
         bcrypt.compare(args.password, user.password, (err, res) => {
@@ -38,7 +41,7 @@ function loginUser(args, callback) {
             if (res) {
                 return callback(null, user);
             }
-            callback({msg: 'wrong password'});
+            callback(null, {err:{msg: 'wrong password'}});
         }); 
     }).catch(err => {
         console.error('login error:',err);
