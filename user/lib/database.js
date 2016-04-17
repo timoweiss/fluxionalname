@@ -42,6 +42,5 @@ function getAllUser(args) {
 }
 
 function unwrapFirstElem(arr) {
-    console.log(arr);
-    return arr[0];
+   return arr[0];
 }
