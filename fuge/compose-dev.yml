@@ -9,3 +9,7 @@ base:
 user_service:
   build: ../user/
   container_name: user_service
+
+company_service:
+  build: ../company/
+  container_name: company_service

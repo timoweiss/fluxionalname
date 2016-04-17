@@ -18,3 +18,10 @@ user_service:
   environment:
     - SERVICE_HOST=0.0.0.0
     - API_PORT=10000
+    
+company_service:
+  build: ../company/
+  container_name: company_service
+  environment:
+    - SERVICE_HOST=0.0.0.0
+    - API_PORT=10000
