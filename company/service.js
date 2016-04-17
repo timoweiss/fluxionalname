@@ -3,7 +3,7 @@
 const actions = require('./lib/actions');
 
 const defaults = {
-    name: 'service'
+    name: 'company'
 };
 
 module.exports = function (options) {
