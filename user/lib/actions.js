@@ -13,19 +13,14 @@ module.exports = {
 
 function createUser(args, callback) {
     
-    bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
+    bcrypt.hash(args.password, SALT_ROUNDS, (err, hash) => {
         if(err) {
             return callback(err);
         }
-        bcrypt.hash(args.password, salt, (err, hash) => {
-            if(err) {
-                return callback(err);
-            }
-            args.password = hash;
-            database.createUser(args)
-                .then(data => callback(null, data))
-                .catch(callback);
-        });
+        args.password = hash;
+        database.createUser(args)
+            .then(data => callback(null, data))
+            .catch(callback);
     });
 }
 
