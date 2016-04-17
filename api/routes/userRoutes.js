@@ -8,4 +8,10 @@ module.exports.routes = [{
     config: {
         handler: handler.handler
     }
+}, {
+    method: 'POST',
+    path: '/users',
+    config: {
+        handler: handler.registerUser
+    }
 }];
