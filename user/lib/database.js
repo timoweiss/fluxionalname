@@ -20,8 +20,14 @@ const User = thinky.createModel('User', {
 
 
 function createUser(userData) {
-    const user = new User(userData);
-    return user.save();
+    return getUserByMail(userData.mail).then(isAlreadyRegistered => {
+        if(isAlreadyRegistered) {
+            return {err: {msg: 'user already exists'}};
+        }
+        const user = new User(userData);
+        return user.save();
+    });
+    
 }
 
 function getUserByMail(mail) {
@@ -36,5 +42,6 @@ function getAllUser(args) {
 }
 
 function unwrapFirstElem(arr) {
+    console.log(arr);
     return arr[0];
 }
