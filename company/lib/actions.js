@@ -1,15 +1,14 @@
 'use strict';
 
+const database = require('./database');
+
 module.exports = {
-    serviceAction,
-    serviceAction2
+    createCompany
 };
 
 
-function serviceAction(args, callback) {
-    callback(null, {data: 'data'});
-}
-
-function serviceAction2(args, callback) {
-    callback(null, {data: 'data'});
+function createCompany(args, callback) {
+    database.createCompany(args)
+        .then(company => callback(null, company))
+        .catch(callback);
 }
