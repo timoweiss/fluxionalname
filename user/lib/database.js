@@ -12,7 +12,9 @@ const User = thinky.createModel('User', {
     id: type.string(),
     name: type.string().min(2),
     surname: type.string(),
-    mail: type.string().email()
+    password: type.string(),
+    mail: type.string().email(),
+    image_id: type.string()
 }, {enforce_extra:'remove'});
 
     
