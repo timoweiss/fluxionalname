@@ -14,4 +14,7 @@ function handler(request, reply) {
 
 function registerUser(request, reply) {
     reply();
+    request.server.seneca.act('role:user,cmd:create', request.payload, function(err, data) {
+        reply(data);
+    });
 }
