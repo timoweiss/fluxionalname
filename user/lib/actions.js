@@ -9,8 +9,7 @@ module.exports = {
 
 
 function createUser(args, callback) {
-    
-    
+
     database.createUser(args)
         .then(data => callback(null, data))
         .catch(callback);
