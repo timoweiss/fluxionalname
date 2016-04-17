@@ -2,6 +2,7 @@
 
 const thinky = require('thinky')();
 const type = thinky.type;
+const r = thinky.r;
 
 module.exports = {
     createCompany
@@ -13,6 +14,7 @@ const Company = thinky.createModel('Company', {
     mail: type.string().email(),
     image_id: type.string(),
     created_by: type.string(),
+    created_at: type.date().default(r.now()),
     address: {
         street: type.string(),
         number: type.number(),
