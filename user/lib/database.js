@@ -5,6 +5,7 @@ const type = thinky.type;
 
 module.exports = {
     createUser,
+    getUserByMail,
     getAllUser
 };
 
@@ -23,6 +24,17 @@ function createUser(userData) {
     return user.save();
 }
 
+function getUserByMail(mail) {
+    return User
+        .filter({mail:mail})
+        .run()
+        .then(unwrapFirstElem);
+}
+
 function getAllUser(args) {
     return User.run();
+}
+
+function unwrapFirstElem(arr) {
+    return arr[0];
 }
