@@ -17,29 +17,6 @@ const User = thinky.createModel('User', {
     image_id: type.string()
 }, {enforce_extra:'remove'});
 
-    
-    User.changes().then(function(feed) {
-        feed.each(function(error, doc) {
-            if (error) {
-                console.log(error);
-                process.exit(1);
-            }
-
-            if (doc.isSaved() === false) {
-                console.log('The following document was deleted:');
-                console.log(doc);
-            } else if (doc.getOldValue() === null) {
-                console.log('A new document was inserted:');
-                console.log(doc);
-            } else {
-                console.log('A document was updated.');
-                console.log('Old value:');
-                console.log(doc.getOldValue());
-                console.log('New value:');
-                console.log(doc);
-            }
-        });
-    });
 
 function createUser(userData) {
     const user = new User(userData);
