@@ -8,8 +8,8 @@ module.exports.routes = [{
     method: 'POST',
     path: '/companies',
     config: {
-        description: 'register new user',
-        tags: ['api', 'user'],
+        description: 'add new company',
+        tags: ['api', 'company'],
         handler: handler.createCompany,
         validate: {
             payload: validation.create
