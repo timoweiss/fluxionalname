@@ -13,9 +13,9 @@ module.exports = {
 
 
 function createUser(args, callback) {
-    
+
     bcrypt.hash(args.password, SALT_ROUNDS, (err, hash) => {
-        if(err) {
+        if (err) {
             return callback(err);
         }
         args.password = hash;
@@ -27,21 +27,21 @@ function createUser(args, callback) {
 
 function loginUser(args, callback) {
     database.getUserByMail(args.mail).then(user => {
-         
-        if(!user) {
-            return callback(null, {err: {msg:'user not found'}});
+
+        if (!user) {
+            return callback(null, {err: {msg: 'user not found'}});
         }
         bcrypt.compare(args.password, user.password, (err, res) => {
-            if(err) {
+            if (err) {
                 return callback(err);
             }
             if (res) {
                 return callback(null, user);
             }
-            callback(null, {err:{msg: 'wrong password'}});
-        }); 
+            callback(null, {err: {msg: 'wrong password'}});
+        });
     }).catch(err => {
-        console.error('login error:',err);
+        console.error('login error:', err);
         callback(err);
     });
 }
