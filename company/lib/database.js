@@ -5,7 +5,8 @@ const type = thinky.type;
 const r = thinky.r;
 
 module.exports = {
-    createCompany
+    createCompany,
+    getById
 };
 
 const Company = thinky.createModel('Company', {
@@ -27,4 +28,8 @@ const Company = thinky.createModel('Company', {
 function createCompany(companyData) {
     const company = new Company(companyData);
     return company.save();
+}
+
+function getById(id) {
+    return Company.get(id).run();
 }
