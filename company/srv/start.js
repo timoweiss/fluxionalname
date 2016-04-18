@@ -12,7 +12,7 @@ const opts = {
     },
     mesh: {
         auto: true,
-        pins: ['role:company']
+        listen: [{pin: 'role:company', model:'consume'}]
     },
     plugin: {
 
