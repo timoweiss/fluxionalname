@@ -49,6 +49,12 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
         throw err;
     }
 
+
+    server.on('route', (route, connection, server) => {
+
+        console.log('New route added: ' + route.path);
+    });
+
     // configure auth strategy
     server.auth.strategy('session', 'cookie', true, {
         password: process.env['COOKIE_SECRET'] || 'secretzweiunddreisigzeichenmindestens',
@@ -61,9 +67,17 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
     });
 
 
+    server.ext('onPostAuth', (request, reply) => {
+        let requestAuth = request.auth;
+        request.requesting_user_id = requestAuth.credentials && requestAuth.credentials.id ? requestAuth.credentials.id : 'unknown';
+        console.log('set requesting_user_id:', request.requesting_user_id);
+        reply.continue();
+    });
+
     server.seneca.use('mesh', {auto: true});
     server.route(userRoutes.routes);
     server.route(companyRoutes.routes);
+
 
     server.start(err => {
         if (err) {
