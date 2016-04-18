@@ -1,0 +1,65 @@
+{
+  "apps": [
+    {
+      "name": "base",
+      "script": "base/index.js",
+      "min_uptime": "5s",
+      "max_memory_restart": "350M",
+      "watch": false,
+      "exec_interpreter": "node",
+      "exec_mode": "fork",
+      "autorestart": true,
+      "vizion": false,
+      "log_date_format": "YYYY-MM-DD HH:mm Z"
+    },
+    {
+      "name": "user",
+      "script": "user/src/start.js",
+      "min_uptime": "5s",
+      "max_memory_restart": "350M",
+      "watch": false,
+      "exec_interpreter": "node",
+      "exec_mode": "fork",
+      "autorestart": true,
+      "vizion": false,
+      "log_date_format":""
+    },
+    {
+      "name": "company",
+      "script": "company/src/start.js",
+      "args" : ["--seneca.log=type:act"],
+      "min_uptime": "5s",
+      "max_memory_restart": "350M",
+      "watch": false,
+      "exec_interpreter": "node",
+      "exec_mode": "fork",
+      "autorestart": true,
+      "vizion": false,
+      "log_date_format": "YYYY-MM-DD HH:mm Z"
+    },
+    {
+      "name": "customer",
+      "script": "customer/src/start.js",
+      "min_uptime": "5s",
+      "max_memory_restart": "300M",
+      "watch": false,
+      "exec_interpreter": "node",
+      "exec_mode": "fork",
+      "autorestart": true,
+      "vizion": false,
+      "log_date_format": "YYYY-MM-DD HH:mm Z"
+    },
+    {
+      "name": "api",
+      "script": "api/index.js",
+      "min_uptime": "5s",
+      "max_memory_restart": "250M",
+      "watch": false,
+      "exec_interpreter": "node",
+      "exec_mode": "fork",
+      "autorestart": true,
+      "vizion": false,
+      "log_date_format": "YYYY-MM-DD HH:mm Z"
+    }
+  ]
+}
