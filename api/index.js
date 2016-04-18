@@ -17,6 +17,22 @@ const manifest = {
                 }
             }
         }
+    }, {
+        plugin: {
+            register: 'inert',
+            options: {}
+        }
+    }, {
+        plugin: {
+            register: 'vision',
+            options: {}
+        }
+    }, {
+        plugin: {
+            register: 'hapi-swagger',
+            options: {}
+        }
+
 
     }]
 };
