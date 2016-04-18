@@ -33,6 +33,11 @@ const manifest = {
         }
 
 
+    }, {
+        plugin: {
+            register: 'hapi-auth-cookie',
+            options: {}
+        }
     }]
 };
 
@@ -43,6 +48,19 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
         console.log('er', err);
         throw err;
     }
+
+    // configure auth strategy
+    server.auth.strategy('session', 'cookie', 'optional', {
+        password: process.env['COOKIE_SECRET'] || 'secretzweiunddreisigzeichenmindestens',
+        ttl: 24 * 60 * 60 * 1000 * 365,   // 1 year
+        keepAlive: true,
+        cookie: 'invoicesession',
+        isSecure: false, //TODO
+        clearInvalid: true,
+        isHttpOnly: true
+    });
+
+
     server.seneca.use('mesh', {auto: true});
     server.route(userRoutes.routes);
     server.route(companyRoutes.routes);
