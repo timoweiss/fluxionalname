@@ -7,11 +7,11 @@ const service = require('../service');
 
 const opts = {
     seneca: {
-        tag: 'customers'
+        tag: 'customer'
     },
     mesh: {
         auto: true,
-        pins: ['role:customers']
+        pins: ['role:customer']
     },
     plugin: {
 

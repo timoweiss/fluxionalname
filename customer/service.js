@@ -3,7 +3,7 @@
 const actions = require('./lib/actions');
 
 const defaults = {
-    name: 'service'
+    name: 'customer'
 };
 
 module.exports = function (options) {
@@ -25,8 +25,8 @@ module.exports = function (options) {
         this.prior(close_msg, done);
     });
 
-    seneca.add({role: 'customers', cmd: 'action1'}, actions.serviceAction);
-    seneca.add({role: 'customers', cmd: 'action2'}, actions.serviceAction2);
+    seneca.add({role: 'customer', cmd: 'action1'}, actions.serviceAction);
+    seneca.add({role: 'customer', cmd: 'action2'}, actions.serviceAction2);
 
     return {
         name: opts.name
