@@ -61,5 +61,17 @@
       "vizion": false,
       "log_date_format": "YYYY-MM-DD HH:mm Z"
     }
-  ]
+  ],
+  "deploy" : {
+
+    "dev" : {
+      "user" : "ubuntu",
+      "host" : "212.83.163.1",
+      "repo" : "https://github.com/timoweiss/fluxionalname",
+      "ref"  : "origin/master",
+      "path" : "/home/ubuntu/server/fluxionalname",
+      "post-deploy" : "pm2 startOrRestart ecosystem.json",
+      "key":"/Users/timoweiss/Downloads/bachelor.pem"
+    }
+  }
 }
