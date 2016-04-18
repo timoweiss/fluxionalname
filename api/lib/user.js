@@ -2,18 +2,30 @@
 
 module.exports = {
     handler,
-    registerUser
+    registerUser,
+    login
 };
 
 function handler(request, reply) {
-    
-    request.server.seneca.act('role:user,cmd:get,by:nothing,cache$:true', function(err, data) {
+
+    request.server.seneca.act('role:user,cmd:get,by:nothing,cache$:true', function (err, data) {
         reply(data);
     });
 }
 
 function registerUser(request, reply) {
-    request.server.seneca.act('role:user,cmd:create', request.payload, function(err, data) {
+    request.server.seneca.act('role:user,cmd:create', request.payload, function (err, data) {
+        reply(data);
+    });
+}
+
+function login(request, reply) {
+    request.server.seneca.act('role:user,cmd:login', request.payload, function (err, data) {
+        if(err) {
+            return reply.code(401);
+        }
+
+        request.cookieAuth.set(data);
         reply(data);
     });
 }
