@@ -2,7 +2,6 @@
 
 const handler = require('../lib/user');
 const validation = require('../validation/userValidation');
-
 module.exports.routes = [{
     method: 'GET',
     path: '/users',
@@ -20,6 +19,17 @@ module.exports.routes = [{
         handler: handler.registerUser,
         validate: {
             payload: validation.register
+        }
+    }
+}, {
+    method: 'POST',
+    path: '/users/login',
+    config: {
+        description: 'login with user-account',
+        tags: ['api', 'user', 'login'],
+        handler: handler.login,
+        validate: {
+            payload: validation.login
         }
     }
 }];
