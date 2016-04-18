@@ -19,7 +19,8 @@ module.exports.routes = [{
         handler: handler.registerUser,
         validate: {
             payload: validation.register
-        }
+        },
+        auth: false
     }
 }, {
     method: 'POST',
@@ -30,6 +31,7 @@ module.exports.routes = [{
         handler: handler.login,
         validate: {
             payload: validation.login
-        }
+        },
+        auth: false
     }
 }];
