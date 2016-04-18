@@ -15,7 +15,7 @@ module.exports.routes = [{
             payload: validation.create
         }
     }
-},{
+}, {
     method: 'GET',
     path: '/companies/{id}',
     config: {
