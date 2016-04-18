@@ -21,7 +21,7 @@ function registerUser(request, reply) {
 
 function login(request, reply) {
     request.server.seneca.act('role:user,cmd:login', request.payload, function (err, data) {
-        if(err) {
+        if (err) {
             return reply.code(401);
         }
 
