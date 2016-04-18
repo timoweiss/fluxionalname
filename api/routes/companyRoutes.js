@@ -15,4 +15,15 @@ module.exports.routes = [{
             payload: validation.create
         }
     }
+},{
+    method: 'GET',
+    path: '/companies/{id}',
+    config: {
+        description: 'get company by id',
+        tags: ['api', 'company'],
+        handler: handler.getCompanyById,
+        validate: {
+            params: validation.idRequired
+        }
+    }
 }];
