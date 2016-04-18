@@ -16,4 +16,8 @@ validations.create = joi.object().keys({
     })
 });
 
+validations.idRequired = joi.object().keys({
+    id: joi.string().required().min(5)
+});
+
 module.exports = validations;
