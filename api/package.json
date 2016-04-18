@@ -13,6 +13,7 @@
     "chairo": "^2.2.0",
     "glue": "^3.2.0",
     "hapi": "^13.3.0",
+    "hapi-auth-cookie": "^6.1.1",
     "hapi-swagger": "^5.0.1",
     "inert": "^3.2.0",
     "joi": "^8.0.5",
