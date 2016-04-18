@@ -26,7 +26,8 @@ module.exports = function (options) {
     });
 
     seneca.add({role: 'company', cmd: 'create'}, actions.createCompany);
-    
+    seneca.add({role: 'company', cmd: 'get', by: 'id'}, actions.getCompanyById);
+
     return {
         name: opts.name
     };
