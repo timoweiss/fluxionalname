@@ -13,9 +13,7 @@ const manifest = {
         plugin: {
             register: 'chairo',
             options: {
-                actcache: {
-                    active: true
-                }
+                log: 'info'
             }
         }
     }, {
