@@ -14,7 +14,7 @@
     },
     {
       "name": "user",
-      "script": "user/src/start.js",
+      "script": "user/srv/start.js",
       "min_uptime": "5s",
       "max_memory_restart": "350M",
       "watch": false,
@@ -26,7 +26,7 @@
     },
     {
       "name": "company",
-      "script": "company/src/start.js",
+      "script": "company/srv/start.js",
       "args" : ["--seneca.log=type:act"],
       "min_uptime": "5s",
       "max_memory_restart": "350M",
@@ -39,7 +39,7 @@
     },
     {
       "name": "customer",
-      "script": "customer/src/start.js",
+      "script": "customer/srv/start.js",
       "min_uptime": "5s",
       "max_memory_restart": "300M",
       "watch": false,
