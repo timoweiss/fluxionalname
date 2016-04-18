@@ -10,26 +10,27 @@ const manifest = {
     }],
     registrations: [{
         plugin: {
-            register:'chairo',
+            register: 'chairo',
             options: {
                 actcache: {
                     active: true
                 }
-        }},
-        
+            }
+        }
+
     }]
 };
 
 
 Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
 
-    if(err) {
+    if (err) {
         console.log('er', err);
         throw err;
     }
-    server.seneca.use('mesh', {auto:true});
+    server.seneca.use('mesh', {auto: true});
     server.route(userRoutes.routes);
-            
+
     server.start(err => {
         if (err) {
             throw err;
