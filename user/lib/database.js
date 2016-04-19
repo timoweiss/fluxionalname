@@ -17,23 +17,23 @@ const User = thinky.createModel('User', {
     password: type.string(),
     mail: type.string().email(),
     image_id: type.string()
-}, {enforce_extra:'remove'});
+}, {enforce_extra: 'remove'});
 
 
 function createUser(userData) {
     return getUserByMail(userData.mail).then(isAlreadyRegistered => {
-        if(isAlreadyRegistered) {
+        if (isAlreadyRegistered) {
             return {err: {msg: 'user already exists'}};
         }
         const user = new User(userData);
         return user.save();
     });
-    
+
 }
 
 function getUserByMail(mail) {
     return User
-        .filter({mail:mail})
+        .filter({mail: mail})
         .run()
         .then(unwrapFirstElem);
 }
@@ -41,11 +41,11 @@ function getUserByMail(mail) {
 function byId(id, removePw) {
     return User.get(id)
         .then(user => {
-            if(removePw) {
-                return rmPassword(user)
+            if (removePw) {
+                return rmPassword(user);
             }
             return user;
-        })
+        });
 }
 
 function getAllUser(args) {
@@ -53,7 +53,7 @@ function getAllUser(args) {
 }
 
 function unwrapFirstElem(arr) {
-   return arr[0];
+    return arr[0];
 }
 
 const rmPassword = user => delete user.password ? user : user;
