@@ -32,6 +32,7 @@ function unwrap(serviceResponse) {
         return boom(serviceResponse.err.detail);
     }
     // TODO: log, really bad - should never happen
+    console.error('really bad:', serviceResponse);
     return boom.badImplementation();
 
 }
