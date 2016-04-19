@@ -10,7 +10,7 @@ module.exports = {
 function handler(request, reply) {
 
 
-    request.server.seneca.act({role: 'user', cmd: 'get', by: 'id', id: 'e76d1ac9-bae0-4814-a19d-566547e8c92c'}, function (err, data) {
+    request.server.seneca.act({role: 'user', cmd: 'get', by: 'nothing'}, function (err, data) {
         reply(data);
     });
 }
