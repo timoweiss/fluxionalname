@@ -7,9 +7,9 @@ module.exports = {
 };
 
 const ERRORS = {
-    NOT_FOUND: boom.notFound,
-    BAD_IMPL: boom.badImplementation,
-    MISSING_COMPANY_ID_SESSION: boom.badRequest
+    NOT_FOUND: {fn: boom.notFound},
+    BAD_IMPL: {fn: boom.badImplementation},
+    MISSING_COMPANY_ID_SESSION: {fn: boom.badRequest, details: 'Please define a company_id for your session'}
 };
 
 
@@ -29,7 +29,7 @@ function unwrap(serviceResponse) {
         }
 
         // return boom function with (optional) message
-        return boom(serviceResponse.err.detail);
+        return boom.fn(serviceResponse.err.details || boom.details);
     }
     // TODO: log, really bad - should never happen
     console.error('really bad:', serviceResponse);
