@@ -30,7 +30,7 @@ const Company = thinky.createModel('Company', {
         plz: type.number(),
         city: type.string()
     }
-}, {enforce_extra:'remove'});
+}, {enforce_extra: 'remove'});
 
 
 function createCompany(companyData) {
@@ -46,7 +46,7 @@ function createCompany(companyData) {
 
 function getById(id, user_id) {
     console.log('getById', id, user_id);
-    return Company.filter({id:id}).filter(company => filterByRights(company, user_id)).run();
+    return Company.filter({id: id}).filter(company => filterByRights(company, user_id)).run();
 }
 
 function getByUserId(user_id) {
