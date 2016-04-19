@@ -8,7 +8,8 @@ module.exports = {
 
 const ERRORS = {
     NOT_FOUND: boom.notFound,
-    BAD_IMPL: boom.badImplementation
+    BAD_IMPL: boom.badImplementation,
+    MISSING_COMPANY_ID_SESSION: boom.badRequest
 };
 
 

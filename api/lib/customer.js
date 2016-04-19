@@ -7,7 +7,7 @@ module.exports = {
 
 function getCustomer(request, reply) {
     if(!request.company_id) {
-        return reply({msg: 'missing company id in session'}).code(400);
+        return reply(request.unwrap({msg: 'MISSING_COMPANY_ID_SESSION'}));
     }
 
     console.log(request.requesting_user_id);
