@@ -26,7 +26,7 @@ function getCompanyById(args, callback) {
                     if (!err) {
                         company.created_by = data;
                     }
-                    resolve(company)
+                    resolve(company);
                 });
             });
 
