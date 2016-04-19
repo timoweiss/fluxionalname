@@ -77,7 +77,7 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
         let requestAuth = request.auth;
         request.requesting_user_id = {};
         request.requesting_user_id.ruid = requestAuth.credentials && requestAuth.credentials.id ? requestAuth.credentials.id : 'unknown';
-        console.log('set requesting_user_id:', request.requesting_user_id.ruid);
+        console.log('set requesting_user_id:', requestAuth);
         reply.continue();
     });
 
