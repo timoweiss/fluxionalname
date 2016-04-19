@@ -15,6 +15,7 @@ const Customer = thinky.createModel('Customer', {
     url: type.string(),
     image_id: type.string(),
     created_by: type.string(),
+    company_id: type.string(),
     created_at: type.date().default(r.now()),
     address: {
         street: type.string(),
