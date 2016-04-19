@@ -16,6 +16,9 @@ const Company = thinky.createModel('Company', {
     image_id: type.string(),
     created_by: type.string(),
     created_at: type.date().default(r.now()),
+    executives: type.array(),
+    employees: type.array(),
+    readonly: type.array(),
     address: {
         street: type.string(),
         number: type.number(),
