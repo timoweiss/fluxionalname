@@ -6,6 +6,8 @@ const userRoutes = require('./routes/userRoutes');
 const companyRoutes = require('./routes/companyRoutes');
 const customerRoutes = require('./routes/customerRoutes');
 
+const unwrap = require('./lib/responseCodes').unwrap;
+
 const hoek = require('hoek');
 
 const manifest = {
@@ -16,7 +18,8 @@ const manifest = {
         plugin: {
             register: 'chairo',
             options: {
-                log: 'info'
+                log: 'info',
+                strict: {result: false}
             }
         }
     }, {
@@ -84,8 +87,10 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
     });
 
     server.decorate('request', 'applyToDefaults', hoek.applyToDefaults);
+    
+    server.decorate('request', 'unwrap', unwrap);
 
-    server.seneca.use('mesh', {auto: true});
+    server.seneca.use('../all', {auto: true});
     server.route(userRoutes.routes);
     server.route(companyRoutes.routes);
     server.route(customerRoutes.routes);
