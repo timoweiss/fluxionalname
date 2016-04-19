@@ -14,6 +14,7 @@ const Company = thinky.createModel('Company', {
     id: type.string(),
     name: type.string().min(2),
     mail: type.string().email(),
+    url: type.string(),
     image_id: type.string(),
     created_by: type.string(),
     created_at: type.date().default(r.now()),
