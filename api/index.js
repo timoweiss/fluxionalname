@@ -5,6 +5,8 @@ const Glue = require('glue');
 const userRoutes = require('./routes/userRoutes');
 const companyRoutes = require('./routes/companyRoutes');
 
+const hoek = require('hoek');
+
 const manifest = {
     connections: [{
         port: process.env['API_PORT'] || 8000
@@ -69,10 +71,13 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
 
     server.ext('onPostAuth', (request, reply) => {
         let requestAuth = request.auth;
-        request.requesting_user_id = requestAuth.credentials && requestAuth.credentials.id ? requestAuth.credentials.id : 'unknown';
-        console.log('set requesting_user_id:', request.requesting_user_id);
+        request.requesting_user_id = {};
+        request.requesting_user_id.ruid = requestAuth.credentials && requestAuth.credentials.id ? requestAuth.credentials.id : 'unknown';
+        console.log('set requesting_user_id:', request.requesting_user_id.ruid);
         reply.continue();
     });
+
+    server.decorate('request', 'applyToDefaults', hoek.applyToDefaults);
 
     server.seneca.use('mesh', {auto: true});
     server.route(userRoutes.routes);
