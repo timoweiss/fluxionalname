@@ -4,6 +4,8 @@ const thinky = require('thinky')();
 const type = thinky.type;
 const r = thinky.r;
 
+const COMPANY_COLORS = ['#2ecc71', '#3498db', '#9b59b6', '#34495e', '#e67e22', '#f1c40f', '#e74c3c', '#1abc9c', '#7f8c8d', '#f39c12', '#c0392b'];
+
 module.exports = {
     createCompany,
     getById,
@@ -21,6 +23,7 @@ const Company = thinky.createModel('Company', {
     executives: type.array(),
     employees: type.array(),
     readonly: type.array(),
+    color: type.string(),
     address: {
         street: type.string(),
         number: type.number(),
@@ -31,19 +34,25 @@ const Company = thinky.createModel('Company', {
 
 
 function createCompany(companyData) {
-    const company = new Company(companyData);
-    return company.save();
+    return Company
+        .filter(company => filterByRights(company, companyData.ruid))
+        .then(count => {
+            companyData.color = COMPANY_COLORS[count.length % COMPANY_COLORS.length];
+            const company = new Company(companyData);
+            return company.save();
+        }).catch(console.error);
+
 }
 
 function getById(id, user_id) {
     console.log('getById', id, user_id);
-    return Company.filter({id:id}).filter(company => {
-        return company('executives').contains(user_id) || company('employees').contains(user_id) || company('readonly').contains(user_id);
-    }).run();
+    return Company.filter({id:id}).filter(company => filterByRights(company, user_id)).run();
 }
 
 function getByUserId(user_id) {
-    return Company.filter(company => {
-        return company('executives').contains(user_id) || company('employees').contains(user_id) || company('readonly').contains(user_id);
-    });
+    return Company.filter(company => filterByRights(company, user_id));
+}
+
+function filterByRights(company, user_id) {
+    return company('executives').contains(user_id) || company('employees').contains(user_id) || company('readonly').contains(user_id);
 }
