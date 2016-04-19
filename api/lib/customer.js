@@ -21,7 +21,7 @@ function getCustomer(request, reply) {
 function createCustomer(request, reply) {
 
     const seneca = request.server.seneca;
-    const pattern = request.applyToDefaults({role: 'customer', cmd: 'create'}, request.requesting_user_id);
+    const pattern = request.applyToDefaults({role: 'customer', cmd: 'create', company_id: request.company_id}, request.requesting_user_id);
     seneca.act(pattern, request.payload, function (err, data) {
         if (err) {
             return reply(err);
