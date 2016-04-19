@@ -9,8 +9,10 @@ module.exports = {
 
 
 function createCompany(args, callback) {
-    args.created_by = args.ruid;
-    database.createCompany(args)
+
+    const company = this.util.deepextend({executives:[args.ruid],employees:[], readonly:[]}, args);
+    company.created_by = company.ruid;
+    database.createCompany(company)
         .then(company => callback(null, company))
         .catch(callback);
 }
