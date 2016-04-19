@@ -23,6 +23,17 @@ module.exports.routes = [{
         auth: false
     }
 }, {
+    method: 'GET',
+    path: '/users/{id}',
+    config: {
+        description: 'get user by id',
+        tags: ['api', 'user'],
+        handler: handler.getUserById,
+        validate: {
+            params: validation.id
+        }
+    }
+}, {
     method: 'POST',
     path: '/users/login',
     config: {
