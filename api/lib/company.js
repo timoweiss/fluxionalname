@@ -6,13 +6,17 @@ module.exports = {
 };
 
 function createCompany(request, reply) {
-    request.server.seneca.act('role:company,cmd:create', request.payload, function(err, data) {
+    const pattern = request.applyToDefaults({role: 'company', cmd: 'create'}, request.requesting_user_id);
+
+    request.server.seneca.act(pattern, request.payload, function(err, data) {
         reply(data);
     });
 }
 
 function getCompanyById(request, reply) {
-    request.server.seneca.act('role:company,cmd:get,by:id', request.params, function(err, data) {
+    const pattern = request.applyToDefaults({role: 'company', cmd: 'get', by: 'id'}, request.requesting_user_id);
+
+    request.server.seneca.act(pattern, request.params, function(err, data) {
         reply(err ||data);
     });
 }

@@ -15,9 +15,9 @@ function handler(request, reply) {
     });
 }
 function getUserById(request, reply) {
+    const pattern = request.applyToDefaults({role: 'user', cmd: 'get', by: 'id'}, request.requesting_user_id);
 
-
-    request.server.seneca.act({role: 'user', cmd: 'get', by: 'id'}, request.params, function (err, data) {
+    request.server.seneca.act(pattern, request.params, function (err, data) {
         reply(data);
     });
 }
