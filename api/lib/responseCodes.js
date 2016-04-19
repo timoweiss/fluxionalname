@@ -1,3 +1,5 @@
+'use strict';
+
 const boom = require('boom');
 
 module.exports = {
