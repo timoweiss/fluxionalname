@@ -13,3 +13,7 @@ user_service:
 company_service:
   build: ../company/
   container_name: company_service
+
+customer_service:
+  build: ../customer/
+  container_name: customer_service

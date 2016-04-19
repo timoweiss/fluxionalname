@@ -25,3 +25,10 @@ company_service:
   environment:
     - SERVICE_HOST=0.0.0.0
     - API_PORT=10000
+
+customer_service:
+  build: ../customer/
+  container_name: customer_service
+  environment:
+    - SERVICE_HOST=0.0.0.0
+    - API_PORT=10000
