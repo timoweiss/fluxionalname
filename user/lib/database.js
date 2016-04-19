@@ -6,7 +6,8 @@ const type = thinky.type;
 module.exports = {
     createUser,
     getUserByMail,
-    getAllUser
+    getAllUser,
+    byId
 };
 
 const User = thinky.createModel('User', {
@@ -37,6 +38,16 @@ function getUserByMail(mail) {
         .then(unwrapFirstElem);
 }
 
+function byId(id, removePw) {
+    return User.get(id)
+        .then(user => {
+            if(removePw) {
+                return rmPassword(user)
+            }
+            return user;
+        })
+}
+
 function getAllUser(args) {
     return User.run();
 }
@@ -44,3 +55,5 @@ function getAllUser(args) {
 function unwrapFirstElem(arr) {
    return arr[0];
 }
+
+const rmPassword = user => delete user.password ? user : user;
