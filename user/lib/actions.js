@@ -8,6 +8,7 @@ const SALT_ROUNDS = 10;
 module.exports = {
     createUser,
     loginUser,
+    getUserById,
     getAllUser
 };
 
@@ -44,6 +45,12 @@ function loginUser(args, callback) {
         console.error('login error:', err);
         callback(err);
     });
+}
+
+function getUserById(args, callback) {
+    database.byId(args.id, true)
+        .then(data => callback(null, data))
+        .catch(callback);
 }
 
 function getAllUser(args, callback) {
