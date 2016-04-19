@@ -5,7 +5,8 @@ const type = thinky.type;
 const r = thinky.r;
 
 module.exports = {
-    createCustomer
+    createCustomer,
+    getCustomerByCompanyId
 };
 
 const Customer = thinky.createModel('Customer', {
@@ -29,4 +30,8 @@ const Customer = thinky.createModel('Customer', {
 function createCustomer(customerData) {
     const customer = new Customer(customerData);
     return customer.save();
+}
+
+function getCustomerByCompanyId(companyId) {
+    return Customer.filter({company_id: companyId});
 }
