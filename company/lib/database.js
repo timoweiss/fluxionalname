@@ -6,7 +6,8 @@ const r = thinky.r;
 
 module.exports = {
     createCompany,
-    getById
+    getById,
+    getByUserId
 };
 
 const Company = thinky.createModel('Company', {
@@ -38,4 +39,10 @@ function getById(id, user_id) {
     return Company.filter({id:id}).filter(company => {
         return company('executives').contains(user_id) || company('employees').contains(user_id) || company('readonly').contains(user_id);
     }).run();
+}
+
+function getByUserId(user_id) {
+    return Company.filter(company => {
+        return company('executives').contains(user_id) || company('employees').contains(user_id) || company('readonly').contains(user_id);
+    });
 }

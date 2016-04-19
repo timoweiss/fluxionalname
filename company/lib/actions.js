@@ -4,7 +4,8 @@ const database = require('./database');
 
 module.exports = {
     createCompany,
-    getCompanyById
+    getCompanyById,
+    getCompanyByUserId
 };
 
 
@@ -36,4 +37,15 @@ function getCompanyById(args, callback) {
             console.error(err);
             callback(err);
         });
+}
+
+function getCompanyByUserId(args, callback) {
+    console.log(args)
+    database.getByUserId(args.ruid)
+        .then(c => {
+            console.log(c);
+            return c
+        })
+        .then(companies => callback(null, companies))
+        .catch(callback);
 }
