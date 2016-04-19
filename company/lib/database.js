@@ -33,6 +33,9 @@ function createCompany(companyData) {
     return company.save();
 }
 
-function getById(id) {
-    return Company.get(id).run();
+function getById(id, user_id) {
+    console.log('getById', id, user_id);
+    return Company.filter({id:id}).filter(company => {
+        return company('executives').contains(user_id) || company('employees').contains(user_id) || company('readonly').contains(user_id);
+    }).run();
 }

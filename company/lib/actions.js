@@ -19,8 +19,8 @@ function createCompany(args, callback) {
 
 function getCompanyById(args, callback) {
     const seneca = this;
-    database.getById(args.id)
-        .then(company => {
+    database.getById(args.id, args.ruid)
+        /*.then(company => {
             return new Promise(resolve => {
                 seneca.act('role:user,cmd:get,by:id,id:' + company.created_by, (err, data) => {
                     if (!err) {
@@ -30,7 +30,10 @@ function getCompanyById(args, callback) {
                 });
             });
 
-        })
+        })*/
         .then(company => callback(null, company))
-        .catch(callback);
+        .catch(err => {
+            console.error(err);
+            callback(err);
+        });
 }
