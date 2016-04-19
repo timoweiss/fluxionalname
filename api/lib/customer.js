@@ -12,8 +12,14 @@ function getCustomer(request, reply) {
 
     console.log(request.requesting_user_id);
     const pattern = request.applyToDefaults({role: 'customer', cmd: 'get', company_id: request.company_id}, request.requesting_user_id);
-    request.server.seneca.act(pattern, function (err, data) {
-        reply(data);
+    request.server.seneca.act(pattern, function (err, customers) {
+        if (err) {
+            // TODO add logging
+            console.log(err);
+            return reply(request.unwrap({err: {msg: 'BAD_IMPL'}}));
+        }
+
+        reply(request.unwrap(customers));
     });
 }
 
@@ -22,10 +28,12 @@ function createCustomer(request, reply) {
 
     const seneca = request.server.seneca;
     const pattern = request.applyToDefaults({role: 'customer', cmd: 'create', company_id: request.company_id}, request.requesting_user_id);
-    seneca.act(pattern, request.payload, function (err, data) {
+    seneca.act(pattern, request.payload, function (err, customer) {
         if (err) {
-            return reply(err);
+            // TODO add logging
+            console.log(err);
+            return reply(request.unwrap({err: {msg: 'BAD_IMPL'}}));
         }
-        reply(data);
+        reply(request.unwrap(customer));
     });
 }

@@ -10,12 +10,12 @@ module.exports = {
 
 function createCustomer(args, callback) {
     database.createCustomer(args)
-        .then(customer => callback(null, customer))
+        .then(customer => callback(null, {data: customer}))
         .catch(callback);
 }
 
 function getCustomerByCompanyId(args, callback) {
     database.getCustomerByCompanyId(args.company_id)
-        .then(customer => callback(null, customer))
+        .then(customer => callback(null, {data: customer}))
         .catch(callback);
 }
