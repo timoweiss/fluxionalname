@@ -4,6 +4,7 @@ require('@risingstack/trace');
 const Glue = require('glue');
 const userRoutes = require('./routes/userRoutes');
 const companyRoutes = require('./routes/companyRoutes');
+const customerRoutes = require('./routes/customerRoutes');
 
 const hoek = require('hoek');
 
@@ -86,6 +87,7 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
     server.seneca.use('mesh', {auto: true});
     server.route(userRoutes.routes);
     server.route(companyRoutes.routes);
+    server.route(customerRoutes.routes);
 
 
     server.start(err => {
