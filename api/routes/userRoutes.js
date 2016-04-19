@@ -45,4 +45,15 @@ module.exports.routes = [{
         },
         auth: false
     }
+}, {
+    method: 'GET',
+    path: '/users/logout',
+    config: {
+        description: 'logout user-account',
+        tags: ['api', 'user', 'logout'],
+        handler: (request, reply) => {
+            request.cookieAuth.clear();
+            reply({msg: 'Tschuss'});
+        }
+    }
 }];
