@@ -28,6 +28,10 @@ module.exports = function (options) {
     seneca.add({role: 'user', cmd: 'create'}, actions.createUser);
     seneca.add({role: 'user', cmd: 'login'}, actions.loginUser);
     seneca.add({role: 'user', cmd: 'get', by: 'nothing'}, actions.getAllUser);
+    seneca.add({role: 'user', cmd: 'get', by: 'id', id: '*'}, actions.getUserById);
+
+    // seneca.act({role: 'user', cmd: 'get', by: 'id', id: 'e76d1ac9-bae0-4814-a19d-566547e8c92c'}, console.log);
+
     return {
         name: opts.name
     };
