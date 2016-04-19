@@ -14,7 +14,7 @@ module.exports = function (options) {
     const opts = extend(defaults, options);
 
     seneca.add({init: opts.name}, function (args, ready) {
-        console.log('init');
+        console.log('init', opts.name);
         // do some init work
         setTimeout(ready, 100);
     });
