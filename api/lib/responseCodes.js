@@ -25,13 +25,13 @@ function unwrap(serviceResponse) {
 
         if (!boom) {
             console.error('TODO: unknown error-code:', serviceResponse.err.msg);
-            return Boom.badImplementation();
+            return boom.badImplementation();
         }
 
         // return boom function with (optional) message
         return boom(serviceResponse.err.detail);
     }
     // TODO: log, really bad - should never happen
-    return Boom.badImplementation();
+    return boom.badImplementation();
 
 }
