@@ -26,4 +26,15 @@ module.exports.routes = [{
             params: validation.idRequired
         }
     }
+}, {
+    method: 'GET',
+    path: '/companies/select/{id}',
+    config: {
+        description: 'select company id for current session',
+        tags: ['api', 'company'],
+        handler: handler.selectCompany,
+        validate: {
+            params: validation.idRequired
+        }
+    }
 }];
