@@ -8,6 +8,7 @@ validations.create = joi.object().keys({
     mail: joi.string().email().min(3).max(60).required()
         .description('Mail address'),
     name: joi.string().required(),
+    url: joi.string().default(''),
     address: joi.object().keys({
         street: joi.string(),
         number: joi.number(),
