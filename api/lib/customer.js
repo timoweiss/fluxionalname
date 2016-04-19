@@ -7,7 +7,7 @@ module.exports = {
 
 function getCustomer(request, reply) {
     if (!request.company_id) {
-        return reply(request.unwrap({msg: 'MISSING_COMPANY_ID_SESSION'}));
+        return reply(request.unwrap({err: {msg: 'MISSING_COMPANY_ID_SESSION'}}));
     }
 
     const pattern = request.applyToDefaults({
