@@ -9,14 +9,27 @@ module.exports = {
 
 
 function createCompany(args, callback) {
+    args.created_by = args.ruid;
     database.createCompany(args)
         .then(company => callback(null, company))
         .catch(callback);
 }
 
 function getCompanyById(args, callback) {
+    const seneca = this;
     console.log(args)
     database.getById(args.id)
+        .then(company => {
+            return new Promise(resolve => {
+                seneca.act('role:user,cmd:get,by:id,id:' + company.created_by, (err, data) => {
+                    if (!err) {
+                        company.created_by = data;
+                    }
+                    resolve(company)
+                });
+            });
+
+        })
         .then(company => callback(null, company))
         .catch(callback);
 }
