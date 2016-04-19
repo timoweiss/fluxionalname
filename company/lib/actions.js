@@ -17,7 +17,6 @@ function createCompany(args, callback) {
 
 function getCompanyById(args, callback) {
     const seneca = this;
-    console.log(args)
     database.getById(args.id)
         .then(company => {
             return new Promise(resolve => {
