@@ -25,9 +25,10 @@ function getUserById(request, reply) {
 function registerUser(request, reply) {
     const seneca = request.server.seneca;
     seneca.act('role:user,cmd:create', request.payload, function (err, data) {
-
+        const sessionData = {user: data, company_id: ''};
         getCompaniesByUserId(data, seneca, resp => {
-            request.cookieAuth.set(resp)
+            
+            request.cookieAuth.set(sessionData);
             reply(resp);
         });
     });
@@ -39,8 +40,9 @@ function login(request, reply) {
         if (err) {
             return reply.code(401);
         }
+        const sessionData = {user: data, company_id: ''};
         getCompaniesByUserId(data, seneca, resp => {
-            request.cookieAuth.set(resp)
+            request.cookieAuth.set(sessionData);
             reply(resp);
         });
 
