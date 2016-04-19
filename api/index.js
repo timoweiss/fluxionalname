@@ -57,6 +57,10 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
         console.log('New route added: ' + route.path);
     });
 
+    server.on('log', (event, tags) => {
+        console.log(event, tags);
+    });
+
     // configure auth strategy
     server.auth.strategy('session', 'cookie', true, {
         password: process.env['COOKIE_SECRET'] || 'secretzweiunddreisigzeichenmindestens',
