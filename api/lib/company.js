@@ -3,7 +3,8 @@
 module.exports = {
     createCompany,
     getCompanyById,
-    selectCompany
+    selectCompany,
+    getCompaniesByRuid
 };
 
 function createCompany(request, reply) {
@@ -16,6 +17,14 @@ function createCompany(request, reply) {
 
 function getCompanyById(request, reply) {
     const pattern = request.applyToDefaults({role: 'company', cmd: 'get', by: 'id'}, request.requesting_user_id);
+
+    request.server.seneca.act(pattern, request.params, function(err, data) {
+        reply(err || data);
+    });
+}
+
+function getCompaniesByRuid(request, reply) {
+    const pattern = request.applyToDefaults({role: 'company', cmd: 'get', by: 'ruid'}, request.requesting_user_id);
 
     request.server.seneca.act(pattern, request.params, function(err, data) {
         reply(err || data);

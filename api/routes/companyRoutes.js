@@ -17,6 +17,14 @@ module.exports.routes = [{
     }
 }, {
     method: 'GET',
+    path: '/companies',
+    config: {
+        description: 'get companies',
+        tags: ['api', 'company'],
+        handler: handler.getCompaniesByRuid
+    }
+}, {
+    method: 'GET',
     path: '/companies/{id}',
     config: {
         description: 'get company by id',
