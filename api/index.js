@@ -95,7 +95,10 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
     
     server.decorate('request', 'unwrap', unwrap);
 
+    // monolith configuration (replace '../all' with 'mesh')
     server.seneca.use('../all', {auto: true});
+
+
     server.route(userRoutes.routes);
     server.route(companyRoutes.routes);
     server.route(customerRoutes.routes);
