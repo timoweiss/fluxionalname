@@ -23,27 +23,13 @@ const manifest = {
             }
         }
     }, {
-        plugin: {
-            register: 'inert',
-            options: {}
-        }
+        plugin: 'inert'
     }, {
-        plugin: {
-            register: 'vision',
-            options: {}
-        }
+        plugin: 'vision'
     }, {
-        plugin: {
-            register: 'hapi-swagger',
-            options: {}
-        }
-
-
+        plugin: 'hapi-swagger'
     }, {
-        plugin: {
-            register: 'hapi-auth-cookie',
-            options: {}
-        }
+        plugin: 'hapi-auth-cookie'
     }, {
         plugin: {
             register: 'hapi-pino',
