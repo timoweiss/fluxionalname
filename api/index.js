@@ -44,6 +44,13 @@ const manifest = {
             register: 'hapi-auth-cookie',
             options: {}
         }
+    }, {
+        plugin: {
+            register: 'hapi-pino',
+            options: {
+                level: 'debug'
+            }
+        }
     }]
 };
 
@@ -84,7 +91,7 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
         request.requesting_user_id.ruid = requestAuth.credentials && requestAuth.credentials.user.id ? requestAuth.credentials.user.id : 'unknown';
 
 
-        // delay all requests to simulate network-latency for the frontend guys ;) 
+        // delay all requests to simulate network-latency for the frontend guys ;)
         let delay = process.env['PRODUCTION'] ? 0 : 1000;
 
         setTimeout(function () {
