@@ -82,7 +82,10 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
         request.requesting_user_id = {};
         request.company_id = requestAuth.credentials ? requestAuth.credentials.company_id : '';
         request.requesting_user_id.ruid = requestAuth.credentials && requestAuth.credentials.user.id ? requestAuth.credentials.user.id : 'unknown';
-        reply.continue();
+        setTimeout(function () {
+            reply.continue();
+        }, 1000);
+
     });
 
     server.decorate('request', 'applyToDefaults', hoek.applyToDefaults);
