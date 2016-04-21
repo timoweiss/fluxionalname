@@ -9,7 +9,6 @@ module.exports = {
 
 function handler(request, reply) {
 
-    console.log(request.requesting_user_id);
     request.server.seneca.act({role: 'user', cmd: 'get', by: 'nothing'}, function (err, data) {
         reply(request.unwrap(data));
     });
@@ -19,8 +18,8 @@ function getUserById(request, reply) {
 
     request.server.seneca.act(pattern, request.params, function (err, user) {
         if (err) {
-            // TODO add logging
-            console.log(err);
+
+            request.logger.error(err, 'get user by id');
             return reply(request.unwrap({err: {msg: 'BAD_IMPL'}}));
         }
 
@@ -32,8 +31,7 @@ function registerUser(request, reply) {
     const seneca = request.server.seneca;
     seneca.act('role:user,cmd:create', request.payload, function (err, data) {
         if (err) {
-            // TODO add logging
-            console.log(err);
+            request.logger.error(err, 'register user');
             return reply(request.unwrap({err: {msg: 'BAD_IMPL'}}));
         }
 
@@ -52,6 +50,7 @@ function login(request, reply) {
     const seneca = request.server.seneca;
     seneca.act('role:user,cmd:login', request.payload, function (err, data) {
         if (err) {
+            request.logger.error(err, 'login user');
             return reply.code(401);
         }
 
@@ -59,6 +58,7 @@ function login(request, reply) {
 
         const sessionData = {user: user, company_id: ''};
         getCompaniesByUserId(user, seneca, resp => {
+            request.logger.debug(sessionData, 'setting session data');
             request.cookieAuth.set(sessionData);
             reply(resp);
         });
