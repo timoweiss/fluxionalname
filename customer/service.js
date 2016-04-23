@@ -25,6 +25,11 @@ module.exports = function (options) {
         this.prior(close_msg, done);
     });
 
+
+    seneca.ready(function(err) {
+        console.log(err || 'plugin ready:', opts.name);
+    });
+
     seneca.add({role: 'customer', cmd: 'create'}, actions.createCustomer);
     seneca.add({role: 'customer', cmd: 'get', company_id: '*'}, actions.getCustomerByCompanyId);
 
