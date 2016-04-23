@@ -25,6 +25,10 @@ module.exports = function (options) {
         this.prior(close_msg, done);
     });
 
+    seneca.ready(function(err) {
+        console.log(err || 'plugin ready:', opts.name);
+    });
+
     seneca.add({role: 'ticket', cmd: 'action1'}, actions.serviceAction);
 
     return {
