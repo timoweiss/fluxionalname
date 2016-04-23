@@ -25,6 +25,10 @@ module.exports = function (options) {
         this.prior(close_msg, done);
     });
 
+    seneca.ready(function(err) {
+       console.log(err || 'plugin ready:', opts.name);
+    });
+
     seneca.add({role: 'user', cmd: 'create'}, actions.createUser);
     seneca.add({role: 'user', cmd: 'login'}, actions.loginUser);
     seneca.add({role: 'user', cmd: 'get', by: 'nothing'}, actions.getAllUser);
