@@ -1,5 +1,5 @@
 'use strict';
-require('@risingstack/trace');
+// require('@risingstack/trace');
 
 const seneca = require('seneca')({
     tag: 'base'
