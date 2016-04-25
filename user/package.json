@@ -22,8 +22,7 @@
     "mongodb": "^2.1.16",
     "seneca": "^2.0.0",
     "seneca-balance-client": "^0.4.0",
-    "seneca-mesh": "^0.7.0",
-    "thinky": "^2.2.7"
+    "seneca-mesh": "^0.7.0"
   },
   "repository": {
     "private": true
