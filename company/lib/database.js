@@ -4,55 +4,117 @@ const thinky = require('thinky')();
 const type = thinky.type;
 const r = thinky.r;
 
+
+const mongodb = require('mongodb');
+const mongo = mongodb.MongoClient;
+const ObjectId = mongodb.ObjectId;
+
+const joi = require('joi');
+const mongoUrl = `mongodb://${process.env['DB_HOST'] || 'localhost'}:${process.env['DB_PORT'] || 27017}/${process.env['DB_NAME'] || 'test'}`;
+const COLLECTION_COMPANY = 'companies';
+
+let db = {};
+
 const COMPANY_COLORS = ['#2ecc71', '#3498db', '#9b59b6', '#34495e', '#e67e22', '#f1c40f', '#e74c3c', '#1abc9c', '#7f8c8d', '#f39c12', '#c0392b'];
 
 module.exports = {
     createCompany,
     getById,
-    getByUserId
+    getCompaniesByUser,
+    connect
 };
 
-const Company = thinky.createModel('Company', {
-    id: type.string(),
-    name: type.string().min(2),
-    mail: type.string().email(),
-    url: type.string(),
-    image_id: type.string(),
-    created_by: type.string(),
-    created_at: type.date().default(r.now()),
-    executives: type.array(),
-    employees: type.array(),
-    readonly: type.array(),
-    color: type.string(),
-    address: {
-        street: type.string(),
-        number: type.number(),
-        plz: type.number(),
-        city: type.string()
-    }
-}, {enforce_extra: 'remove'});
+const CompanyModel = joi.object().keys({
+    name: joi.string().required(),
+    mail: joi.string().email(),
+    url: joi.string(),
+    image_id: joi.string(),
+    created_by: joi.string(),
+    // created_at: joi.date().default(r.now()),
+    executives: joi.array(),
+    employees: joi.array(),
+    readonly: joi.array(),
+    color: joi.string(),
+    address: joi.object().keys({
+        street: joi.string(),
+        number: joi.number(),
+        plz: joi.number(),
+        city: joi.string()
+    })
+});
 
 
 function createCompany(companyData) {
-    return Company
-        .filter(company => filterByRights(company, companyData.ruid))
-        .then(count => {
-            companyData.color = COMPANY_COLORS[count.length % COMPANY_COLORS.length];
-            const company = new Company(companyData);
-            return company.save();
-        }).catch(console.error);
+
+    const ruid = companyData.ruid;
+    console.log(ruid)
+
+    const validated = joi.validate(companyData, CompanyModel, {stripUnknown: true});
+    console.log('asdlkjalskd')
+    if (validated.err) {
+        return Promise.reject({err: validated.err});
+    }
+
+    const validatedData = validated.value;
+    const collection = db.collection(COLLECTION_COMPANY);
+
+    return generateCompanyColor(ruid)
+        .then(color => {
+            validatedData.color = color;
+            return validatedData;
+        })
+        .then(cd => collection.insertOne(validatedData))
+        .then(result => {
+            // TODO err handling
+            console.log('asd');
+            return validatedData;
+        });
 
 }
 
 function getById(id, user_id) {
-    console.log('getById', id, user_id);
-    return Company.filter({id: id}).filter(company => filterByRights(company, user_id)).run();
+    return db.collection(COLLECTION_COMPANY)
+        .find({_id: new ObjectId(id), $or: getUserIdQuery(user_id).$or})
+        .toArray()
+        .then(unwrapFirstElem);
 }
 
-function getByUserId(user_id) {
-    return Company.filter(company => filterByRights(company, user_id));
+
+function unwrapFirstElem(arr) {
+    return arr[0];
 }
 
-function filterByRights(company, user_id) {
-    return company('executives').contains(user_id) || company('employees').contains(user_id) || company('readonly').contains(user_id);
+function countCompaniesByUser(user_id) {
+    const collection = db.collection(COLLECTION_COMPANY);
+    return collection.count(getUserIdQuery(user_id));
+}
+
+function getCompaniesByUser(user_id) {
+    const collection = db.collection(COLLECTION_COMPANY);
+    return collection.find(getUserIdQuery(user_id)).toArray();
+}
+
+function getUserIdQuery(user_id) {
+    return {
+        $or: [
+            {executives: user_id},
+            {employees: user_id},
+            {readonly: user_id}
+        ]
+    };
+}
+
+function generateCompanyColor(user_id) {
+    return countCompaniesByUser(user_id)
+        .then(count => {
+            return COMPANY_COLORS[count % COMPANY_COLORS.length];
+        });
+}
+
+function connect() {
+    return mongo.connect(mongoUrl).then(_db => {
+        console.log('connected', mongoUrl);
+        db = _db;
+        return db;
+    }).catch(err => console.error(err));
 }

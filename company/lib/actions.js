@@ -19,19 +19,7 @@ function createCompany(args, callback) {
 }
 
 function getCompanyById(args, callback) {
-    const seneca = this;
     database.getById(args.id, args.ruid)
-        /*.then(company => {
-         return new Promise(resolve => {
-         seneca.act('role:user,cmd:get,by:id,id:' + company.created_by, (err, data) => {
-         if (!err) {
-         company.created_by = data;
-         }
-         resolve(company);
-         });
-         });
-
-         })*/
         .then(company => callback(null, company))
         .catch(err => {
             console.error(err);
@@ -40,12 +28,8 @@ function getCompanyById(args, callback) {
 }
 
 function getCompanyByUserId(args, callback) {
-    console.log(args)
-    database.getByUserId(args.ruid)
-        .then(c => {
-            console.log(c);
-            return c
-        })
+
+    database.getCompaniesByUser(args.ruid)
         .then(companies => callback(null, companies))
         .catch(callback);
 }
