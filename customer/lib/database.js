@@ -38,7 +38,7 @@ const CustomerModel = joi.object().keys({
 });
 
 function createCustomer(customerData) {
-    console.log('customerData', customerData);
+
     const ruid = customerData.ruid;
 
     const validated = joi.validate(customerData, CustomerModel, {stripUnknown: true});
