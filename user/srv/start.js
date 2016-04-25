@@ -1,5 +1,6 @@
 'use strict';
-require('@risingstack/trace');
+// require('seneca-intercept');
+// require('@risingstack/trace');
 
 const seneca = require('seneca');
 const mesh = require('seneca-mesh');
