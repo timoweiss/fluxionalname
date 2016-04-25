@@ -12,7 +12,7 @@ let db = {};
 
 module.exports = {
     connect
-}
+};
 
 function connect() {
     return mongo.connect(mongoUrl).then(_db => {
