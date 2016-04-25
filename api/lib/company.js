@@ -11,7 +11,7 @@ function createCompany(request, reply) {
     const pattern = request.applyToDefaults({role: 'company', cmd: 'create'}, request.requesting_user_id);
 
     request.server.seneca.act(pattern, request.payload, function(err, data) {
-        reply(data);
+        reply(err || data);
     });
 }
 
