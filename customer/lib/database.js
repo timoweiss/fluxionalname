@@ -4,34 +4,63 @@ const thinky = require('thinky')();
 const type = thinky.type;
 const r = thinky.r;
 
+const mongodb = require('mongodb');
+const mongo = mongodb.MongoClient;
+const ObjectId = mongodb.ObjectId;
+
+const joi = require('joi');
+const mongoUrl = `mongodb://${process.env['DB_HOST'] || 'localhost'}:${process.env['DB_PORT'] || 27017}/${process.env['DB_NAME'] || 'test'}`;
+const COLLECTION_CUSTOMER = 'customer';
+
 module.exports = {
     createCustomer,
-    getCustomerByCompanyId
+    getCustomerByCompanyId,
+    connect
 };
 
-const Customer = thinky.createModel('Customer', {
-    id: type.string(),
-    name: type.string().min(2),
-    mail: type.string().email(),
-    url: type.string(),
-    image_id: type.string(),
-    created_by: type.string(),
-    company_id: type.string(),
-    created_at: type.date().default(r.now()),
-    address: {
-        street: type.string(),
-        number: type.number(),
-        plz: type.number(),
-        city: type.string()
-    }
-}, {enforce_extra: 'remove'});
+let db = {};
 
+const CustomerModel = joi.object().keys({
+    id: joi.string(),
+    name: joi.string().min(2).required(),
+    mail: joi.string().email(),
+    url: joi.string(),
+    image_id: joi.string(),
+    created_by: joi.string(),
+    company_id: joi.string(),
+    // created_at: joi.date().default(r.now()),
+    address: {
+        street: joi.string(),
+        number: joi.number(),
+        plz: joi.number(),
+        city: joi.string()
+    }
+});
 
 function createCustomer(customerData) {
-    const customer = new Customer(customerData);
-    return customer.save();
+    console.log('customerData', customerData);
+    const ruid = companyData.ruid;
+
+    const validated = joi.validate(customerData, CustomerModel, {stripUnknown: true});
+
+    if (validated.err) {
+        return Promise.reject({err: validated.err});
+    }
+
+    const customer = validated.value;
+
+    return db.collection(COLLECTION_CUSTOMER).insertOne(customer);
 }
 
 function getCustomerByCompanyId(companyId) {
-    return Customer.filter({company_id: companyId});
+    return db.collection(COLLECTION_CUSTOMER).find({company_id: companyId});
+}
+
+
+function connect() {
+    return mongo.connect(mongoUrl).then(_db => {
+        console.log('connected', mongoUrl);
+        db = _db;
+        return db;
+    }).catch(err => console.error(err));
 }
