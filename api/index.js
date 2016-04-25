@@ -88,15 +88,15 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
         let requestAuth = request.auth;
         request.requesting_user_id = {};
         request.company_id = requestAuth.credentials ? requestAuth.credentials.company_id : '';
-        request.requesting_user_id.ruid = requestAuth.credentials && requestAuth.credentials.user.id ? requestAuth.credentials.user.id : 'unknown';
+        request.requesting_user_id.ruid = requestAuth.credentials && requestAuth.credentials.user._id ? requestAuth.credentials.user._id : 'unknown';
 
 
         // delay all requests to simulate network-latency for the frontend guys ;)
         let delay = process.env['PRODUCTION'] ? 0 : 1000;
 
-        setTimeout(function () {
+        // setTimeout(function () {
             reply.continue();
-        }, delay);
+        // }, delay);
 
     });
 
@@ -105,7 +105,7 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
     server.decorate('request', 'unwrap', unwrap);
 
     // monolith configuration (replace '../all' with 'mesh')
-    server.seneca.use('../all', {auto: true});
+    server.seneca.use('mesh', {auto: true});
 
 
     // add routes
