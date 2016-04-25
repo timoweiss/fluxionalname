@@ -39,7 +39,7 @@ const CustomerModel = joi.object().keys({
 
 function createCustomer(customerData) {
     console.log('customerData', customerData);
-    const ruid = companyData.ruid;
+    const ruid = customerData.ruid;
 
     const validated = joi.validate(customerData, CustomerModel, {stripUnknown: true});
 
@@ -49,11 +49,11 @@ function createCustomer(customerData) {
 
     const customer = validated.value;
 
-    return db.collection(COLLECTION_CUSTOMER).insertOne(customer);
+    return db.collection(COLLECTION_CUSTOMER).insertOne(customer).then(() => customer);
 }
 
 function getCustomerByCompanyId(companyId) {
-    return db.collection(COLLECTION_CUSTOMER).find({company_id: companyId});
+    return db.collection(COLLECTION_CUSTOMER).find({company_id: companyId}).toArray();
 }
 
 
@@ -63,4 +63,8 @@ function connect() {
         db = _db;
         return db;
     }).catch(err => console.error(err));
+}
+
+function unwrapFirstElem(arr) {
+    return arr[0];
 }
