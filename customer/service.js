@@ -16,7 +16,7 @@ module.exports = function (options) {
 
     seneca.add({init: opts.name}, function (args, ready) {
         console.log('init', opts.name);
-        data.connect().then(() => ready());
+        database.connect().then(() => ready());
     });
 
     seneca.add('role:seneca,cmd:close', function (close_msg, done) {
