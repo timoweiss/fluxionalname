@@ -14,6 +14,18 @@ module.exports = {
     connect
 };
 
+const TicketModel = joi.object().keys({
+    title: joi.string().min(2).required(),
+    fulltext: joi.string(),
+    created_by: joi.string().required(),
+    company_id: joi.string().required(),
+    customer_id: joi.string().required(),
+    assignee: joi.string().required(),
+    labels: joi.array().items(joi.string()),
+    time_spent: joi.number(),
+    status: joi.string().valid('open', 'closed')
+});
+
 function connect() {
     return mongo.connect(mongoUrl).then(_db => {
         db = _db;
