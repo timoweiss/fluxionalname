@@ -1,10 +1,15 @@
 'use strict';
 
+const database = require('./database');
+
 module.exports = {
-    serviceAction
+    createTicket
 };
 
 
-function serviceAction(args, callback) {
-    callback(null, {data: 'data'});
+function createTicket(args, callback) {
+    const ticket = this.util.deepextend({created_by: args.ruid, status: 'open'}, args);
+    database.createTicket(ticket)
+        .then(ticket => callback(null, {data: ticket}))
+        .catch(callback);
 }

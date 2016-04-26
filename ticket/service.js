@@ -30,7 +30,7 @@ module.exports = function (options) {
         console.log(err || 'plugin ready:', opts.name);
     });
 
-    seneca.add({role: 'ticket', cmd: 'action1'}, actions.serviceAction);
+    seneca.add({role: 'ticket', cmd: 'create'}, actions.createTicket);
 
     return {
         name: opts.name
