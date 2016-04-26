@@ -39,8 +39,8 @@ function createCustomer(customerData) {
 
     const validated = joi.validate(customerData, CustomerModel, {stripUnknown: true});
 
-    if (validated.err) {
-        return Promise.reject({err: validated.err});
+    if (validated.error) {
+        return Promise.reject({err: validated.error});
     }
 
     const customer = validated.value;

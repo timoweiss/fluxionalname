@@ -51,8 +51,8 @@ function createCompany(companyData) {
 
     const validated = joi.validate(companyData, CompanyModel, {stripUnknown: true});
     console.log('asdlkjalskd')
-    if (validated.err) {
-        return Promise.reject({err: validated.err});
+    if (validated.error) {
+        return Promise.reject({err: validated.error});
     }
 
     const validatedData = validated.value;

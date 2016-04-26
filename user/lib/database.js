@@ -29,7 +29,7 @@ const UserModel = joi.object().keys({
 
 function createUser(userData) {
     const validated = joi.validate(userData, UserModel, {stripUnknown: true})
-    if (validated.err) {
+    if (validated.error) {
         return Promise.reject({err: validated.err});
     }
     const collection = db.collection('users');
