@@ -12,7 +12,11 @@ const hoek = require('hoek');
 
 const manifest = {
     connections: [{
-        port: process.env['API_PORT'] || 8000
+        port: process.env['API_PORT'] || 8000,
+        // TODO remove in production
+        routes: {
+            cors: true
+        }
     }],
     registrations: [{
         plugin: {
