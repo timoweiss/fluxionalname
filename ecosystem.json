@@ -60,6 +60,18 @@
       "autorestart": true,
       "vizion": false,
       "log_date_format": "YYYY-MM-DD HH:mm Z"
+    },
+    {
+      "name": "ticket",
+      "script": "ticket/srv/start.js",
+      "min_uptime": "5s",
+      "max_memory_restart": "250M",
+      "watch": false,
+      "exec_interpreter": "node",
+      "exec_mode": "fork",
+      "autorestart": true,
+      "vizion": false,
+      "log_date_format": "YYYY-MM-DD HH:mm Z"
     }
   ],
   "deploy" : {
