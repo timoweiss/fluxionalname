@@ -23,7 +23,12 @@ function createUser(args, callback) {
         args.password = hash;
         database.createUser(args)
             .then(user => callback(null, {data: user}))
-            .catch(callback);
+            .catch(err => {
+                if(err.code === 11000) {
+                    return callback(null, {err: {msg: 'USER_ALREADY_EXISTS'}});
+                }
+                callback(err);
+            });
     });
 }
 

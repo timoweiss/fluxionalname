@@ -9,7 +9,8 @@ module.exports = {
 const ERRORS = {
     NOT_FOUND: {fn: boom.notFound},
     BAD_IMPL: {fn: boom.badImplementation},
-    MISSING_COMPANY_ID_SESSION: {fn: boom.badRequest, details: 'Please define a company_id for your session'}
+    MISSING_COMPANY_ID_SESSION: {fn: boom.badRequest, details: 'Please define a company_id for your session'},
+    USER_ALREADY_EXISTS: {fn: boom.badRequest, details: 'User already exists'}
 };
 
 
