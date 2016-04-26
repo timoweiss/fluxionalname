@@ -17,3 +17,7 @@ company_service:
 customer_service:
   build: ../customer/
   container_name: customer_service
+
+ticket_service:
+  build: ../ticket/
+  container_name: ticket_service

@@ -32,3 +32,9 @@ customer_service:
   environment:
     - SERVICE_HOST=0.0.0.0
     - API_PORT=10000
+ticket_service:
+  build: ../ticket/
+  container_name: ticket_service
+  environment:
+    - SERVICE_HOST=0.0.0.0
+    - API_PORT=10000
