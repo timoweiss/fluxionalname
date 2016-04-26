@@ -1,10 +1,5 @@
 'use strict';
 
-const thinky = require('thinky')();
-const type = thinky.type;
-const r = thinky.r;
-
-
 const mongodb = require('mongodb');
 const mongo = mongodb.MongoClient;
 const ObjectId = mongodb.ObjectId;
