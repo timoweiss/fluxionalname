@@ -60,6 +60,10 @@ function login(request, reply) {
 
         let user = request.unwrap(data);
 
+        if(user.isBoom) {
+            return reply(user);
+        }
+
         const sessionData = {user: user, company_id: ''};
         getCompaniesByUserId(user, seneca, resp => {
             request.logger.debug(sessionData, 'setting session data');
