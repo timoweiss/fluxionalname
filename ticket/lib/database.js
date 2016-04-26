@@ -15,7 +15,8 @@ module.exports = {
     createTicket,
     getTicketById,
     getMultipleByKeyValue,
-    getOneByKeyValue
+    getOneByKeyValue,
+    updateStatus
 };
 
 const TicketModel = joi.object().keys({
@@ -68,6 +69,11 @@ function getOneByKeyValue(key, value) {
     }
     return getMultipleByKeyValue(key, value)
         .then(unwrapFirstElem);
+}
+
+function updateStatus(ticketId, status) {
+    return db.collection(COLLECTION_TICKETS)
+        .findOneAndUpdate({_id: new ObjectId(ticketId)}, {$set: {status: status}}, {returnOriginal: false});
 }
 
 function connect() {
