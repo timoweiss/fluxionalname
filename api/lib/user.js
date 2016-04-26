@@ -37,11 +37,12 @@ function registerUser(request, reply) {
 
         let user = request.unwrap(data);
 
-        if(user.isBoom) {
+        if (user.isBoom) {
             return reply(user);
         }
 
-        const sessionData = {user: user, company_id: ''};
+        const sessionData = getSessionData(user);
+        
         getCompaniesByUserId(user, seneca, resp => {
 
             request.cookieAuth.set(sessionData);
@@ -60,11 +61,11 @@ function login(request, reply) {
 
         let user = request.unwrap(data);
 
-        if(user.isBoom) {
+        if (user.isBoom) {
             return reply(user);
         }
 
-        const sessionData = {user: user, company_id: ''};
+        const sessionData = getSessionData(user);
         getCompaniesByUserId(user, seneca, resp => {
             request.logger.debug(sessionData, 'setting session data');
             request.cookieAuth.set(sessionData);
@@ -73,6 +74,15 @@ function login(request, reply) {
 
 
     });
+}
+
+function getSessionData(user) {
+    return {
+        user: {
+            mail: user.mail,
+            _id: user._id
+        }, company_id: ''
+    };
 }
 
 function getCompaniesByUserId(user, seneca, cb) {
