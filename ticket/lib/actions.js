@@ -4,7 +4,8 @@ const database = require('./database');
 
 module.exports = {
     createTicket,
-    getTicketById
+    getTicketById,
+    getTicketsByCompanyId
 };
 
 
@@ -19,5 +20,12 @@ function getTicketById(args, callback) {
     const ticketId = args.ticket_id;
     database.getTicketById(ticketId)
         .then(ticket => callback(null, {data: ticket}))
+        .catch(callback);
+}
+
+function getTicketsByCompanyId(args, callback) {
+    const companyId = args.company_id;
+    database.getMultipleByKeyValue('company_id', companyId)
+        .then(tickets => callback(null, {data: tickets}))
         .catch(callback);
 }
