@@ -23,8 +23,8 @@ const TicketModel = joi.object().keys({
     fulltext: joi.string(),
     created_by: joi.string().required(),
     company_id: joi.string().required(),
-    customer_id: joi.string().required(),
-    assignee: joi.string().required(),
+    customer_id: joi.string(),
+    assignee: joi.string(),
     labels: joi.array().items(joi.string()),
     time_spent: joi.number(),
     status: joi.string().valid('open', 'closed')
@@ -49,7 +49,8 @@ function getTicketById(ticketId) {
     return db.collection(COLLECTION_TICKETS)
         .find({_id: oid})
         .limit(-1)
-        .then(unwrapFirstElem)
+        .toArray()
+        .then(unwrapFirstElem);
 }
 
 function getMultipleByKeyValue(key, value) {
@@ -58,6 +59,7 @@ function getMultipleByKeyValue(key, value) {
 
     return db.collection(COLLECTION_TICKETS)
         .find(query)
+        .toArray();
 }
 
 function getOneByKeyValue(key, value) {
