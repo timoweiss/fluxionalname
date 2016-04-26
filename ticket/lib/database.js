@@ -12,7 +12,8 @@ let db = {};
 
 module.exports = {
     connect,
-    createTicket
+    createTicket,
+    getTicketById
 };
 
 const TicketModel = joi.object().keys({
@@ -41,9 +42,21 @@ function createTicket(args) {
 
 }
 
+function getTicketById(ticketId) {
+    const oid = new ObjectId(ticketId);
+    return db.collection(COLLECTION_TICKETS)
+        .find({_id: oid})
+        .limit(-1)
+        .then(unwrapFirstElem)
+}
+
 function connect() {
     return mongo.connect(mongoUrl).then(_db => {
         db = _db;
         return db;
     }).catch(err => console.error(err));
+}
+
+function unwrapFirstElem(arr) {
+    return arr[0];
 }
