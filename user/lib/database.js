@@ -34,7 +34,7 @@ function createUser(userData) {
     }
     const collection = db.collection('users');
 
-    return collection.insertOne(validated.value).then(() => validated.value);
+    return collection.insertOne(validated.value).then(() => rmPassword(validated.value));
 
 }
 
