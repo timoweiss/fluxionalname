@@ -77,7 +77,7 @@ function getCompaniesByUserId(user, seneca, cb) {
 
     seneca.act(pattern, (err, companies) => {
         if (!err) {
-            response.companies = companies;
+            response.companies = companies.data;
         }
         cb(response);
     });
