@@ -31,6 +31,7 @@ module.exports = function (options) {
     });
 
     seneca.add({role: 'ticket', cmd: 'create'}, actions.createTicket);
+    seneca.add({role: 'ticket', cmd: 'get', by: 'id'}, actions.getTicketById);
 
     return {
         name: opts.name
