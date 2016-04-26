@@ -13,7 +13,9 @@ let db = {};
 module.exports = {
     connect,
     createTicket,
-    getTicketById
+    getTicketById,
+    getMultipleByKeyValue,
+    getOneByKeyValue
 };
 
 const TicketModel = joi.object().keys({
@@ -48,6 +50,22 @@ function getTicketById(ticketId) {
         .find({_id: oid})
         .limit(-1)
         .then(unwrapFirstElem)
+}
+
+function getMultipleByKeyValue(key, value) {
+    const query = {};
+    query[key] = value;
+
+    return db.collection(COLLECTION_TICKETS)
+        .find(query)
+}
+
+function getOneByKeyValue(key, value) {
+    if(key === '_id'){
+        value = new ObjectId(value);
+    }
+    return getMultipleByKeyValue(key, value)
+        .then(unwrapFirstElem);
 }
 
 function connect() {
