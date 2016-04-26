@@ -1,6 +1,7 @@
 'use strict';
 
 const actions = require('./lib/actions');
+const database = require('./lib/database');
 
 const defaults = {
     name: 'ticket'
@@ -16,7 +17,7 @@ module.exports = function (options) {
     seneca.add({init: opts.name}, function (args, ready) {
         console.log('init', opts.name);
         // do some init work
-        setTimeout(ready, 100);
+        database.connect().then(() => ready());
     });
 
     seneca.add('role:seneca,cmd:close', function (close_msg, done) {
