@@ -29,9 +29,9 @@ const TicketModel = joi.object().keys({
 
 function createTicket(args) {
     const validated = joi.validate(args, TicketModel, {stripUnknown: true});
-    if (validated.err) {
+    if (validated.error) {
         // TODO: discuss how to handle this kind of errors
-        return Promise.reject(validated.err);
+        return Promise.reject(validated.error);
     }
     const ticket = validated.value;
 
