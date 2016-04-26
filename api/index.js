@@ -84,7 +84,7 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
         cookie: 'invoicesession',
         isSecure: false, //TODO
         clearInvalid: true,
-        isHttpOnly: true
+        isHttpOnly: false // TODO
     });
 
 
