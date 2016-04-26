@@ -43,6 +43,7 @@ function loginUser(args, callback) {
                 return callback(err);
             }
             if (res) {
+                delete user.password;
                 return callback(null, {data: user});
             }
             // the information can be hidden in the API
