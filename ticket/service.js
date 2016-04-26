@@ -26,8 +26,19 @@ module.exports = function (options) {
         this.prior(close_msg, done);
     });
 
-    seneca.ready(function(err) {
+    seneca.ready(function (err) {
         console.log(err || 'plugin ready:', opts.name);
+        // seneca.act({
+        //     role: 'ticket',
+        //     cmd: 'create',
+        //     ruid: 'timo',
+        //     title: 'testticket',
+        //     fulltext: 'large text',
+        //     company_id: '123',
+        //     customer_id: '321',
+        //     labels: ['lalala']
+        // }, console.log)
+
     });
 
     seneca.add({role: 'ticket', cmd: 'create'}, actions.createTicket);
