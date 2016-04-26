@@ -11,7 +11,8 @@ const COLLECTION_TICKETS = 'tickets';
 let db = {};
 
 module.exports = {
-    connect
+    connect,
+    createTicket
 };
 
 const TicketModel = joi.object().keys({
@@ -25,6 +26,20 @@ const TicketModel = joi.object().keys({
     time_spent: joi.number(),
     status: joi.string().valid('open', 'closed')
 });
+
+function createTicket(args) {
+    const validated = joi.validate(args, TicketModel, {stripUnknown: true});
+    if (validated.err) {
+        // TODO: discuss how to handle this kind of errors
+        return Promise.reject(validated.err);
+    }
+    const ticket = validated.value;
+
+    return db.collection(COLLECTION_TICKETS)
+        .insertOne(ticket)
+        .then(() => ticket);
+
+}
 
 function connect() {
     return mongo.connect(mongoUrl).then(_db => {
