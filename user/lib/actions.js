@@ -36,7 +36,7 @@ function loginUser(args, callback) {
     database.getUserByMail(args.mail).then(user => {
 
         if (!user) {
-            return callback(null, {err: {msg: 'NOT_FOUND'}});
+            return callback(null, {err: {msg: 'LOGIN_NOT_FOUND'}});
         }
         bcrypt.compare(args.password, user.password, (err, res) => {
             if (err) {
