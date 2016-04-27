@@ -16,10 +16,10 @@
     "node": "4"
   },
   "dependencies": {
-    "@risingstack/trace": "^2.5.5",
-    "bcrypt": "^0.8.5",
+    "@risingstack/trace": "^2.8.0",
+    "bcrypt": "^0.8.6",
     "joi": "^8.0.5",
-    "mongodb": "^2.1.16",
+    "mongodb": "^2.1.18",
     "seneca": "^2.0.0",
     "seneca-balance-client": "^0.4.0",
     "seneca-mesh": "^0.7.0"
