@@ -8,7 +8,8 @@ module.exports.routes = [{
     config: {
         description: 'deprecated',
         tags: ['api', 'user'],
-        handler: handler.handler
+        handler: handler.handler,
+        auth: false
     }
 }, {
     method: 'POST',
